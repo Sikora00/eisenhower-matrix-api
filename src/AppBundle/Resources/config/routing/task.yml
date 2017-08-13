@@ -2,3 +2,8 @@ task_list:
   path: task
   defaults: { _controller: AppBundle:Task:list }
   methods: [GET]
+
+task_create:
+  path: task
+  defaults: { _controller: AppBundle:Task:create }
+  methods: [POST]
