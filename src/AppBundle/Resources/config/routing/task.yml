@@ -1,0 +1,4 @@
+task_list:
+  path: task
+  defaults: { _controller: AppBundle:Task:list }
+  methods: [GET]

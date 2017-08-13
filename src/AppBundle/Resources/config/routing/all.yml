@@ -1,0 +1,2 @@
+task:
+  resource: "@AppBundle/Resources/config/routing/task.yml"

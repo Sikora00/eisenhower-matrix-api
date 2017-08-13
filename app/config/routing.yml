@@ -1,4 +1,2 @@
-task_list:
-  path: task
-  defaults: { _controller: AppBundle:Task:list }
-  methods: [GET]
+app:
+    resource: "@AppBundle/Resources/config/routing/all.yml"
