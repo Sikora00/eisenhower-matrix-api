@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Form\TaskFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +21,7 @@ class TaskController extends BaseController
 
     public function createAction(Request $request)
     {
+        $data = $this->handleRequest($request, TaskFormType::class);
         $task = new Task($request->get('title'));
         $manager = $this->getEntityManager();
         $manager->persist($task);
