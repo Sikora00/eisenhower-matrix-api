@@ -67,3 +67,37 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# Fos_Api Configuration
+fos_rest:
+    view:
+        view_response_listener: force
+        force_redirects:
+          html: true
+        formats:
+            jsonp: true
+            json: true
+            xml: false
+            rss: false
+        templating_formats:
+            html: true
+        jsonp_handler: ~
+    body_listener: true
+    param_fetcher_listener: force
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    format_listener:
+        enabled: true
+        rules:
+            - { path: ^/, priorities: [ 'html', 'json' ], fallback_format: html, prefer_extension: true }
+    routing_loader:
+            default_format: ~
+            include_format: true
+    exception:
+        enabled: true
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
