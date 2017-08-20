@@ -9,9 +9,8 @@
 namespace AppBundle\Entity\Repository;
 
 
-use Doctrine\ORM\EntityRepository;
 
-class TaskRepository extends EntityRepository
+class TaskRepository extends BaseRepository
 {
 
 }

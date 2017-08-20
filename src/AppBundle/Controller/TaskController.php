@@ -26,6 +26,14 @@ class TaskController extends BaseController
         $manager = $this->getEntityManager();
         $manager->persist($task);
         $manager->flush();
+        return $task;
+    }
+
+    public function deleteAction(int $id)
+    {
+        $task = $this->getDoctrine()->getRepository(Task::class)->get($id);
+        $this->getEntityManager()->remove($task);
+        $this->getEntityManager()->flush();
         return new JsonResponse();
     }
 }
