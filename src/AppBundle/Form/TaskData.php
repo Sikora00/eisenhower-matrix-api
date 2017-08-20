@@ -10,6 +10,5 @@ namespace AppBundle\Form;
 
 class TaskData
 {
-
     public $title;
 }

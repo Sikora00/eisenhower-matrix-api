@@ -22,7 +22,7 @@ class TaskController extends BaseController
     public function createAction(Request $request)
     {
         $data = $this->handleRequest($request, TaskFormType::class);
-        $task = new Task($request->get('title'));
+        $task = new Task($data->title);
         $manager = $this->getEntityManager();
         $manager->persist($task);
         $manager->flush();

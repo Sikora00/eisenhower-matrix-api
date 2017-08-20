@@ -24,6 +24,8 @@ class BaseController extends Controller
         if (!$form->isValid()) {
             throw new Exception('Invalid Form');
         }
+
+        return $data = $form->getData();
     }
 
     protected function getEntityManager()
