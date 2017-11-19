@@ -21,13 +21,22 @@ class Task
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    public $id;
-    /** @ORM\Column(type="string") */
-    public $title;
+    protected $id;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $title;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="tasks")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
+     */
+    protected $user;
 
-    public function __construct(string $title)
+    public function __construct(string $title, User $user)
     {
         $this->title = $title;
+        $this->user = $user;
     }
 
     /**
@@ -36,5 +45,22 @@ class Task
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
     }
 }

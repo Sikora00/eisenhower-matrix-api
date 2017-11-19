@@ -1,2 +1,5 @@
 task:
   resource: "@AppBundle/Resources/config/routing/task.yml"
+
+repositories:
+  resource: "@sql_repositories.yml"

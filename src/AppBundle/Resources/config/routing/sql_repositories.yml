@@ -1,0 +1,11 @@
+  app.user.user_repository:
+    class: AppBundle\Entity\Repository\UserRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+      - AppBundle\Entity\User
+
+  app.task.task_repository:
+    class: AppBundle\Entity\Repository\TaskRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+      - AppBundle\Entity\Task
