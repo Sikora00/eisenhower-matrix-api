@@ -8,15 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class TaskController extends BaseController
 {
     /**
-     * @Route("web/task", name="task_list")
+     * @Rest\View(serializerGroups={"task_list"})
+     * @param Request $request
+     * @return Task[]
      */
     public function listAction(Request $request)
     {
-        return new JsonResponse($this->getDoctrine()->getRepository(Task::class)->findAll());
+        return $this->getDoctrine()->getRepository(Task::class)->findAll();
     }
 
     public function createAction(Request $request)

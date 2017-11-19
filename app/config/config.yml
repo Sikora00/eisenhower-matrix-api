@@ -67,36 +67,41 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-# Fos_Api Configuration
+# JmsSerializer Configuration
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            AppBundle:
+                namespace_prefix: "AppBundle"
+                path: "@AppBundle/Serializer/config"
+
+# Fos Api Configuration
 fos_rest:
+    serializer:
+        serialize_null: true
+    disable_csrf_role: IS_AUTHENTICATED_ANONYMOUSLY
+    param_fetcher_listener: true
+    format_listener:
+          rules:
+              - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: true }
+
     view:
         view_response_listener: force
-        force_redirects:
-          html: true
         formats:
-            jsonp: true
             json: true
-            xml: false
-            rss: false
-        templating_formats:
-            html: true
-        jsonp_handler: ~
-    body_listener: true
-    param_fetcher_listener: force
+            xml:  true
+        mime_types:
+            json: ['application/json', 'application/x-json']
+            png:  ['image/png']
+            jpg:  ['image/jpeg']
+    versioning:
+        enabled: true
+        resolvers:
+            media_type:
+                enabled: true
+
     allowed_methods_listener: true
     access_denied_listener:
         json: true
-    format_listener:
-        enabled: true
-        rules:
-            - { path: ^/, priorities: [ 'html', 'json' ], fallback_format: html, prefer_extension: true }
-    routing_loader:
-            default_format: ~
-            include_format: true
-    exception:
-        enabled: true
-        codes:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
-            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
-        messages:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    body_listener: true

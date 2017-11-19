@@ -1,3 +1,4 @@
+services:
   app.user.user_repository:
     class: AppBundle\Entity\Repository\UserRepository
     factory: ["@doctrine.orm.entity_manager", getRepository]
