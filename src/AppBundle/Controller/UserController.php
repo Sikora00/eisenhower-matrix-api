@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends BaseController
 {
-    /**
-     * @Route("web/task", name="task_list")
-     */
     public function listAction(Request $request)
     {
         return new JsonResponse($this->getDoctrine()->getRepository(Task::class)->findAll());

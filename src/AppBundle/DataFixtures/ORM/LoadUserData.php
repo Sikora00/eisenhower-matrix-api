@@ -19,7 +19,9 @@ class LoadUserData extends AbstractDataFixture
     {
         $this->manager = $manager;
 
+        $encoder = $this->container->get('security.password_encoder');
         $firstUser = new User('Sikora', 'elo');
+        $firstUser->setPassword($encoder->encodePassword($firstUser, 'elo'));
         $this->manager->persist($firstUser);
         $this->manager->flush();
         $this->setReference('Sikora', $firstUser);

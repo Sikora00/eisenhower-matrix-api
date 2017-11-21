@@ -7,7 +7,5 @@ AppBundle\Entity\User:
     id:
       expose: true
       groups:
-      - task_list
     nick:
       groups:
-      - task_list

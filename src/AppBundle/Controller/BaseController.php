@@ -10,10 +10,13 @@ namespace AppBundle\Controller;
 
 
 use Exception;
+use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
-class BaseController extends Controller
+class BaseController extends FOSRestController
 {
 
     protected function handleRequest(Request $request, string $form, array $options = [])
@@ -31,5 +34,12 @@ class BaseController extends Controller
     protected function getEntityManager()
     {
         return $this->get('doctrine.orm.default_entity_manager');
+    }
+
+    protected function getLoggedUser()
+    {
+        /** @var TokenStorage $tokenStorage */
+        $tokenStorage = $this->get('security.token_storage');
+        return $tokenStorage->getToken()->getUser();
     }
 }

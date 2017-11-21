@@ -1,2 +1,4 @@
 task:
   resource: "@AppBundle/Resources/config/routing/task.yml"
+session:
+  resource: "@AppBundle/Resources/config/routing/session.yml"

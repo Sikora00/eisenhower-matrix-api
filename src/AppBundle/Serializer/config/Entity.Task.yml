@@ -14,5 +14,4 @@ AppBundle\Entity\Task:
     user:
       expose: true
       groups:
-      - task_list
       - task

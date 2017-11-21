@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class TaskController extends BaseController
 {
@@ -19,16 +20,20 @@ class TaskController extends BaseController
      */
     public function listAction(Request $request)
     {
-        return $this->getDoctrine()->getRepository(Task::class)->findAll();
+        $user = $this->getLoggedUser();
+        $taskRepository = $this->getDoctrine()->getRepository(Task::class);
+        $tasks = $taskRepository->findBy(['user' => $user]);
+        return $tasks;
     }
 
     public function createAction(Request $request)
     {
         $data = $this->handleRequest($request, TaskFormType::class);
-        $task = new Task($data->title);
+        $task = new Task($data->title, $this->getLoggedUser());
         $manager = $this->getEntityManager();
         $manager->persist($task);
         $manager->flush();
+
         return $task;
     }
 
@@ -37,6 +42,7 @@ class TaskController extends BaseController
         $task = $this->getDoctrine()->getRepository(Task::class)->get($id);
         $this->getEntityManager()->remove($task);
         $this->getEntityManager()->flush();
+
         return new JsonResponse();
     }
 }
