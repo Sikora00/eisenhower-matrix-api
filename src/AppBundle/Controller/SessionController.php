@@ -24,6 +24,6 @@ class SessionController extends BaseController
         $token = md5(random_bytes(10));
         $user->setToken($token);
         $this->getEntityManager()->flush();
-        return $token; //TODO return JSON
+        return ['token' => $token];
     }
 }
